@@ -632,6 +632,7 @@ a {
   letter-spacing: 6px;
   text-transform: uppercase;
   margin-bottom: var(--spacing-sm);
+   margin-top: 60px;
   opacity: 0.6;
   color: var(--color-accent-dark);
 }
