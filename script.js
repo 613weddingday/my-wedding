@@ -48,7 +48,8 @@
                 return;
             }
             const img = new Image();
-            const path = `images/${folder}/${current}.jpg`;
+            const ext = folder === 'gallery' ? 'webp' : 'jpg';
+const path = `images/${folder}/${current}.${ext}`;
             img.onload = function() {
                 images.push(path);
                 consecutiveFails = 0;
