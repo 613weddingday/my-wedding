@@ -642,6 +642,7 @@ a {
   font-weight: 700;
   letter-spacing: 8px;
   margin-bottom: var(--spacing-md);
+  margin-top: 80px;
   line-height: 1.4;
   color: var(--color-text);
 }
