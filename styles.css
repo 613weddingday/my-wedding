@@ -623,10 +623,11 @@ a {
   color: var(--color-text);
   padding: 0 var(--spacing-md);
   width: 100%;
-  bottom: 220px;
+  bottom: 185px;
 }
 
 .hero__label {
+  display: none;
   font-family: var(--font-display);
   font-size: 0.875rem;
   font-weight: 300;
