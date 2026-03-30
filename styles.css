@@ -763,13 +763,13 @@ a {
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
-  width: 80%;
+  width: 30%;
   margin: 0 auto;
 }
 
 .greeting__parents .parent-dot {
-  color: var(--color-accent);
-  font-size: 0.4rem;
+  color: #b8a4d4;
+  font-size: 0.8rem;
 }
 
 .greeting__parents .child-name {
