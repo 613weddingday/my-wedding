@@ -333,17 +333,15 @@ const path = `images/${folder}/${current}.${ext}`;
     }
 
     const parentsHTML = `
-      <div class="parent-row">
-        ${parentLine(g.father, g.mother, g.fatherDeceased, g.motherDeceased)}
-        <span class="parent-dot">●</span>
-        의 아들 <span class="child-name">${g.name}</span>
-      </div>
-      <div class="parent-row">
-        ${parentLine(b.father, b.mother, b.fatherDeceased, b.motherDeceased)}
-        <span class="parent-dot">●</span>
-        의 딸 <span class="child-name">${b.name}</span>
-      </div>
-    `;
+  <div class="parent-row">
+    <span class="parent-info">${parentLine(g.father, g.mother, g.fatherDeceased, g.motherDeceased)}의 아들</span>
+    <span class="child-name">${g.name}</span>
+  </div>
+  <div class="parent-row">
+    <span class="parent-info">${parentLine(b.father, b.mother, b.fatherDeceased, b.motherDeceased)}의 딸</span>
+    <span class="child-name">${b.name}</span>
+  </div>
+`;
 
     $('#greetingParents').innerHTML = parentsHTML;
   }
@@ -503,6 +501,44 @@ const path = `images/${folder}/${current}.${ext}`;
     $('#photoModal').classList.remove('is-open');
     document.body.classList.remove('no-scroll');
   }
+
+  // 핀치 줌 기능 (최대 2배)
+let scale = 1;
+let lastScale = 1;
+let startDist = 0;
+
+function getDistance(touches) {
+  return Math.hypot(
+    touches[0].clientX - touches[1].clientX,
+    touches[0].clientY - touches[1].clientY
+  );
+}
+
+const modalImg = $('#modalImg');
+
+modalImg.addEventListener('touchstart', (e) => {
+  if (e.touches.length === 2) {
+    startDist = getDistance(e.touches);
+  }
+});
+
+modalImg.addEventListener('touchmove', (e) => {
+  if (e.touches.length === 2) {
+    e.preventDefault();
+    const dist = getDistance(e.touches);
+    scale = Math.min(2, Math.max(1, lastScale * (dist / startDist)));
+    modalImg.style.transform = `scale(${scale})`;
+  }
+}, { passive: false });
+
+modalImg.addEventListener('touchend', () => {
+  lastScale = scale;
+  if (scale < 1.1) {
+    scale = 1;
+    lastScale = 1;
+    modalImg.style.transform = 'scale(1)';
+  }
+});
 
   function showModalImage() {
     const img = $('#modalImg');
@@ -776,11 +812,7 @@ if (t) {
 
   var DEFAULT_MSGS = [
     { id: 1, name: "\uBAA8\uC5F0", content: "\uACB0\uD63C \uCD95\uD558\uD574 \uD83D\uDC9B\n\uC55E\uB0A0\uC5D0 \uD589\uBCF5\uC774 \uAC00\uB4DD\uD558\uAE38!", date: "2026-03-25T00:00:00", color: 0 },
-    { id: 2, name: "\uC608\uB098", content: "\uB108\uBB34 \uC608\uC05C\uB2E4 \uD83E\uDD0D\n\uACB0\uD63C \uCD95\uD558\uD574!!!", date: "2026-03-22T00:00:00", color: 2 },
-    { id: 3, name: "예나", content: "너무 예쁘다.. 결혼 축하해!!", date: "2026-03-28T00:00:00", color: 4 },
-    { id: 4, name: "채우너", content: "드디어~~~ 예쁘다 진짜 너무 축하해 💜", date: "2026-03-20T00:00:00", color: 1 },
-    { id: 5, name: "\uCC2C\uD76C", content: "\uACB0\uD63C \uCD95\uD558\uD574!! \uD589\uBCF5\uD558\uAC8C \uC798 \uC0B4\uC544~", date: "2026-03-27T00:00:00", color: 3 },
-    { id: 6, name: "\uC6D0\uC815", content: "\uACB0\uD63C\uCD95\uD558\uD574!! \uB9E4\uC77C \uB9E4\uC77C \uD589\uBCF5\uD588\uC73C\uBA74 \uC88B\uACA0\uC5B4 \uD83E\uDD70", date: "2026-03-23T00:00:00", color: 5 }
+    { id: 2, name: "\uC608\uB098", content: "\uB108\uBB34 \uC608\uC05C\uB2E4 \uD83E\uDD0D\n\uACB0\uD63C \uCD95\uD558\uD574!!!", date: "2026-03-22T00:00:00", color: 2 }
   ];
 
   function load() {

@@ -761,8 +761,9 @@ a {
 .greeting__parents .parent-row {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   gap: 0.5rem;
+  width: 100%;
 }
 
 .greeting__parents .parent-dot {
@@ -772,6 +773,12 @@ a {
 
 .greeting__parents .child-name {
   font-weight: 700;
+  text-align: right;
+}
+
+.greeting__parents .parent-info {
+  text-align: left;
+  flex: 1;
 }
 
 .greeting__parents .deceased::before {
