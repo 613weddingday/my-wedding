@@ -539,6 +539,28 @@ modalImg.addEventListener('touchend', () => {
     modalImg.style.transform = 'scale(1)';
   }
 });
+// 더블탭 확대/축소
+let lastTap = 0;
+modalImg.addEventListener('touchend', (e) => {
+  if (e.touches.length > 0) return; // 멀티터치 중엔 무시
+  const now = Date.now();
+  const delta = now - lastTap;
+  if (delta < 300 && delta > 0) {
+    // 더블탭 감지
+    if (scale > 1) {
+      // 이미 확대 상태면 원래대로
+      scale = 1;
+      lastScale = 1;
+      modalImg.style.transform = 'scale(1)';
+    } else {
+      // 원래 상태면 2배 확대
+      scale = 2;
+      lastScale = 2;
+      modalImg.style.transform = 'scale(2)';
+    }
+  }
+  lastTap = now;
+});
 
   function showModalImage() {
     const img = $('#modalImg');
@@ -812,7 +834,7 @@ if (t) {
 
   var DEFAULT_MSGS = [
     { id: 1, name: "\uBAA8\uC5F0", content: "\uACB0\uD63C \uCD95\uD558\uD574 \uD83D\uDC9B\n\uC55E\uB0A0\uC5D0 \uD589\uBCF5\uC774 \uAC00\uB4DD\uD558\uAE38!", date: "2026-03-25T00:00:00", color: 0 },
-    { id: 2, name: "\uC608\uB098", content: "\uB108\uBB34 \uC608\uC05C\uB2E4 \uD83E\uDD0D\n\uACB0\uD63C \uCD95\uD558\uD574!!!", date: "2026-03-22T00:00:00", color: 2 }
+    { id: 2, name: "예나", content: "너무 예쁘다! 결혼 축하해✨", date: "2026-03-22T00:00:00", color: 2 }
   ];
 
   function load() {
