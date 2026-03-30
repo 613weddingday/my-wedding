@@ -1484,3 +1484,35 @@ a {
   width: 100%;
   bottom: 160px;
 }
+.music-btn {
+  position: fixed;
+  top: calc(1rem + var(--safe-top));
+  right: calc(1rem + var(--safe-right));
+  z-index: 500;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid var(--color-accent-light);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: var(--color-accent-dark);
+  box-shadow: 0 2px 12px rgba(196, 168, 212, 0.25);
+  transition: var(--transition);
+}
+.music-btn:hover {
+  background: var(--color-accent-light);
+  color: var(--color-white);
+}
+.music-btn__icon.is-playing {
+  display: inline-block;
+  animation: musicSpin 3s linear infinite;
+}
+@keyframes musicSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

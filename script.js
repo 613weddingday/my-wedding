@@ -806,6 +806,34 @@ if (t) {
     initAccounts();
     initFooter();
     initScrollAnimations();
+    // 배경음악
+  const bgm = document.getElementById('bgm');
+  const musicBtn = document.getElementById('musicBtn');
+  const musicIcon = document.getElementById('musicIcon');
+  let bgmStarted = false;
+
+  function startBgm() {
+    if (bgmStarted) return;
+    bgm.volume = 0.4;
+    bgm.play().then(() => {
+      bgmStarted = true;
+      musicIcon.classList.add('is-playing');
+    }).catch(() => {});
+  }
+
+  document.addEventListener('touchstart', startBgm, { once: true });
+  document.addEventListener('click', startBgm, { once: true });
+
+  musicBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (bgm.paused) {
+      bgm.play();
+      musicIcon.classList.add('is-playing');
+    } else {
+      bgm.pause();
+      musicIcon.classList.remove('is-playing');
+    }
+  });
 
     $('#storyTitle').textContent = CONFIG.story.title;
     $('#storyContent').textContent = CONFIG.story.content;
