@@ -806,53 +806,64 @@ if (t) {
     initAccounts();
     initFooter();
     initScrollAnimations();
-    // 배경음악
-  const bgm = document.getElementById('bgm');
-  const musicBtn = document.getElementById('musicBtn');
-  const musicIcon = document.getElementById('musicIcon');
-  let bgmStarted = false;
+   // 배경음악
+const bgm = document.getElementById('bgm');
+const musicBtn = document.getElementById('musicBtn');
+const musicIcon = document.getElementById('musicIcon');
+const musicPopup = document.getElementById('musicPopup');
+const musicPopupYes = document.getElementById('musicPopupYes');
+const musicPopupNo = document.getElementById('musicPopupNo');
+let bgmStarted = false;
 
-  function startBgm() {
-    if (bgmStarted) return;
-    bgm.volume = 0.4;
-    bgm.play().then(() => {
-      bgmStarted = true;
-      musicIcon.classList.add('is-playing');
-    }).catch(() => {});
-  }
+// 카카오톡 인앱 브라우저 감지
+const isKakao = /KAKAOTALK/i.test(navigator.userAgent);
 
-  document.addEventListener('touchstart', startBgm, { once: true });
-  document.addEventListener('click', startBgm, { once: true });
+function startBgm() {
+  if (bgmStarted) return;
+  bgm.volume = 0.4;
+  bgm.play().then(() => {
+    bgmStarted = true;
+    musicIcon.classList.add('is-playing');
+  }).catch(() => {});
+}
 
-  musicBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    if (bgm.paused) {
-      bgm.play();
-      musicIcon.classList.add('is-playing');
-    } else {
-      bgm.pause();
-      musicIcon.classList.remove('is-playing');
-    }
+function hidePopup() {
+  musicPopup.style.opacity = '0';
+  musicPopup.style.transform = 'translateX(-50%) translateY(20px)';
+  musicPopup.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+  setTimeout(() => musicPopup.style.display = 'none', 300);
+}
+
+if (isKakao) {
+  // 카카오톡이면 팝업 표시
+  musicPopup.style.display = 'block';
+
+  musicPopupYes.addEventListener('click', () => {
+    startBgm();
+    hidePopup();
   });
 
-    $('#storyTitle').textContent = CONFIG.story.title;
-    $('#storyContent').textContent = CONFIG.story.content;
+  musicPopupNo.addEventListener('click', () => {
+    hidePopup();
+  });
 
-    const [storyImages, galleryImages] = await Promise.all([
-      loadImagesFromFolder('story'),
-      loadImagesFromFolder('gallery')
-    ]);
+} else {
+  // 외부 브라우저면 첫 터치 시 자동 재생
+  document.addEventListener('touchstart', startBgm, { once: true });
+  document.addEventListener('click', startBgm, { once: true });
+}
 
-    initStory(storyImages);
-    initGallery(galleryImages);
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
+// 재생/정지 버튼 (공통)
+musicBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (bgm.paused) {
+    bgm.play();
+    musicIcon.classList.add('is-playing');
   } else {
-    init();
+    bgm.pause();
+    musicIcon.classList.remove('is-playing');
   }
-})();
+});
 
 // 방명록
 (function() {
