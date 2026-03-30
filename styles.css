@@ -623,7 +623,7 @@ a {
   color: var(--color-text);
   padding: 0 var(--spacing-md);
   width: 100%;
-  bottom: 100px;
+  bottom: 220px;
 }
 
 .hero__label {
@@ -671,7 +671,7 @@ a {
   opacity: 0.75;
   line-height: 1.6;
   color: var(--color-text-light);
-  margin-top: -60px;
+  margin-top: 0;
 }
 
 .hero__venue {
@@ -761,12 +761,13 @@ a {
 }
 
 .greeting__parents .parent-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto;
   align-items: center;
-  justify-content: center;
   gap: 0.5rem;
+  width: fit-content;
+  margin: 0 auto;
   white-space: nowrap;
-  width: 100%;
 }
 .greeting__parents .parent-dot {
   color: #b8a4d4;
@@ -1475,3 +1476,10 @@ a {
 .guestbook-more { width: 100%; margin-top: 12px; padding: 12px; background: none; border: none; border-top: 1px solid rgba(74,63,53,0.15); color: rgba(74,63,53,0.6); cursor: pointer; font-size: 14px; }
 .guestbook-more:hover { color: rgba(74,63,53,0.9); }
 
+.hero__info {
+  position: absolute;
+  z-index: 2;
+  text-align: center;
+  width: 100%;
+  bottom: 160px;
+}
