@@ -621,8 +621,9 @@ a {
   z-index: 2;
   text-align: center;
   color: var(--color-text);
-  padding: 300px var(--spacing-md) var(--spacing-lg);
+  padding: var(--spacing-md) var(--spacing-md) var(--spacing-lg);
   width: 100%;
+  margin-top: 55vh;
 }
 
 .hero__label {
@@ -763,8 +764,9 @@ a {
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
-  width: 50%;
+  width: 70%;
   margin: 0 auto;
+  white-space: nowrap;
 }
 
 .greeting__parents .parent-dot {
