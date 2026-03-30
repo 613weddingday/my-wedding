@@ -807,56 +807,7 @@ if (t) {
     initFooter();
     initScrollAnimations();
   }
-  // 배경음악
-const bgm = document.getElementById('bgm');
-const musicBtn = document.getElementById('musicBtn');
-const musicIcon = document.getElementById('musicIcon');
-let bgmStarted = false;
-
-const isKakao = /KAKAOTALK/i.test(navigator.userAgent);
-
-function startBgm() {
-  if (bgmStarted) return;
-  bgm.volume = 0.4;
-  bgm.play().then(() => {
-    bgmStarted = true;
-    musicIcon.classList.add('is-playing');
-  }).catch(() => {});
-}
-
-function hidePopup() {
-  const musicPopup = document.getElementById('musicPopup');
-  musicPopup.style.opacity = '0';
-  musicPopup.style.transform = 'translateX(-50%) translateY(20px)';
-  musicPopup.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-  setTimeout(() => musicPopup.style.display = 'none', 300);
-}
-
-if (isKakao) {
-  const musicPopup = document.getElementById('musicPopup');
-  if (musicPopup) musicPopup.style.display = 'block';
-  document.getElementById('musicPopupYes')?.addEventListener('click', () => {
-    startBgm();
-    hidePopup();
-  });
-  document.getElementById('musicPopupNo')?.addEventListener('click', () => {
-    hidePopup();
-  });
-} else {
-  document.addEventListener('touchstart', startBgm, { once: true });
-  document.addEventListener('click', startBgm, { once: true });
-}
-
-musicBtn?.addEventListener('click', (e) => {
-  e.stopPropagation();
-  if (bgm.paused) {
-    bgm.play();
-    musicIcon.classList.add('is-playing');
-  } else {
-    bgm.pause();
-    musicIcon.classList.remove('is-playing');
-  }
-});
+ 
 
 // 방명록
 (function() {
