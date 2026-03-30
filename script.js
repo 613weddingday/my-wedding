@@ -334,11 +334,11 @@ const path = `images/${folder}/${current}.${ext}`;
 
     const parentsHTML = `
   <div class="parent-row">
-    <span class="parent-info">${parentLine(g.father, g.mother, g.fatherDeceased, g.motherDeceased)}의 아들</span>
+    <span class="parent-info">${parentLine(g.father, g.mother, g.fatherDeceased, g.motherDeceased)}의 아들<span class="parent-dot">•</span></span>
     <span class="child-name">${g.name}</span>
   </div>
   <div class="parent-row">
-    <span class="parent-info">${parentLine(b.father, b.mother, b.fatherDeceased, b.motherDeceased)}의 딸</span>
+    <span class="parent-info">${parentLine(b.father, b.mother, b.fatherDeceased, b.motherDeceased)}의 딸<span class="parent-dot">•</span></span>
     <span class="child-name">${b.name}</span>
   </div>
 `;
