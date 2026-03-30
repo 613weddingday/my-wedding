@@ -621,9 +621,8 @@ a {
   z-index: 2;
   text-align: center;
   color: var(--color-text);
-  padding: var(--spacing-md) var(--spacing-md) var(--spacing-lg);
+  padding: 0 var(--spacing-md) var(--spacing-lg);
   width: 100%;
-  margin-top: 55vh;
 }
 
 .hero__label {
@@ -633,6 +632,7 @@ a {
   letter-spacing: 6px;
   text-transform: uppercase;
   margin-bottom: var(--spacing-sm);
+  margin-top: 45vh;
   opacity: 0.6;
   color: var(--color-accent-dark);
   text-shadow: 0 2px 15px rgba(255, 255, 255, 0.8);
@@ -762,8 +762,8 @@ a {
 .greeting__parents .parent-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
+  justify-content: flex-start;
+  gap: 0.3rem;
   width: 70%;
   margin: 0 auto;
   white-space: nowrap;
