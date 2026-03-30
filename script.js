@@ -806,16 +806,13 @@ if (t) {
     initAccounts();
     initFooter();
     initScrollAnimations();
-   // 배경음악
+  }
+  // 배경음악
 const bgm = document.getElementById('bgm');
 const musicBtn = document.getElementById('musicBtn');
 const musicIcon = document.getElementById('musicIcon');
-const musicPopup = document.getElementById('musicPopup');
-const musicPopupYes = document.getElementById('musicPopupYes');
-const musicPopupNo = document.getElementById('musicPopupNo');
 let bgmStarted = false;
 
-// 카카오톡 인앱 브라우저 감지
 const isKakao = /KAKAOTALK/i.test(navigator.userAgent);
 
 function startBgm() {
@@ -828,6 +825,7 @@ function startBgm() {
 }
 
 function hidePopup() {
+  const musicPopup = document.getElementById('musicPopup');
   musicPopup.style.opacity = '0';
   musicPopup.style.transform = 'translateX(-50%) translateY(20px)';
   musicPopup.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
@@ -835,26 +833,21 @@ function hidePopup() {
 }
 
 if (isKakao) {
-  // 카카오톡이면 팝업 표시
-  musicPopup.style.display = 'block';
-
-  musicPopupYes.addEventListener('click', () => {
+  const musicPopup = document.getElementById('musicPopup');
+  if (musicPopup) musicPopup.style.display = 'block';
+  document.getElementById('musicPopupYes')?.addEventListener('click', () => {
     startBgm();
     hidePopup();
   });
-
-  musicPopupNo.addEventListener('click', () => {
+  document.getElementById('musicPopupNo')?.addEventListener('click', () => {
     hidePopup();
   });
-
 } else {
-  // 외부 브라우저면 첫 터치 시 자동 재생
   document.addEventListener('touchstart', startBgm, { once: true });
   document.addEventListener('click', startBgm, { once: true });
 }
 
-// 재생/정지 버튼 (공통)
-musicBtn.addEventListener('click', (e) => {
+musicBtn?.addEventListener('click', (e) => {
   e.stopPropagation();
   if (bgm.paused) {
     bgm.play();
