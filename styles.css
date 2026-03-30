@@ -649,6 +649,7 @@ a {
 }
 
 .hero__divider {
+  display: none;
   width: 50px;
   height: 2px;
   margin: 0 auto var(--spacing-md);
@@ -670,10 +671,11 @@ a {
   opacity: 0.75;
   line-height: 1.6;
   color: var(--color-text-light);
+  margin-top: -60px;
 }
 
 .hero__venue {
-  margin-top: 0.25rem;
+  margin-top: 0;
 }
 
 /* ─── Countdown ─── */
@@ -762,10 +764,9 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.3rem;
-  width: auto;
-  margin: 0 auto;
+  gap: 0.5rem;
   white-space: nowrap;
+  width: 100%;
 }
 .greeting__parents .parent-dot {
   color: #b8a4d4;
@@ -774,12 +775,10 @@ a {
 
 .greeting__parents .child-name {
   font-weight: 700;
-  text-align: right;
 }
 
 .greeting__parents .parent-info {
   text-align: left;
-  flex: 1;
 }
 
 .greeting__parents .deceased::before {
