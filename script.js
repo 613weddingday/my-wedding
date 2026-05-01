@@ -691,27 +691,25 @@
   }
 })();
 
-// 방명록
+// 방명록 (Firebase)
 (function() {
+  const firebaseConfig = {
+    apiKey: "AIzaSyDELduFZlebdD0-MDaKfRRQ7KEsqLeDkYk",
+    authDomain: "wedding-guestbook-a62f6.firebaseapp.com",
+    databaseURL: "https://wedding-guestbook-a62f6-default-rtdb.firebaseio.com",
+    projectId: "wedding-guestbook-a62f6",
+    storageBucket: "wedding-guestbook-a62f6.firebasestorage.app",
+    messagingSenderId: "808780419817",
+    appId: "1:808780419817:web:48bb9edc2f9d2a52d69678"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+
   var COLORS = ['#f2e4d5','#e8ddd0','#f5e6e0','#dce8df','#e4dced','#f0e8d0','#d5e4e8'];
   var ROTS = ['-2deg','1deg','-1deg','2deg','0deg','-3deg','3deg'];
-  var KEY = 'wedding-guestbook';
-
-  var DEFAULT_MSGS = [
-    { id: 1, name: "모연", content: "결혼 축하해 💛\n앞날에 행복이 가득하길!", date: "2026-03-25T00:00:00", color: 0 },
-    { id: 2, name: "예나", content: "너무 예쁘다! 결혼 축하해!!!", date: "2026-03-22T00:00:00", color: 2 }
-  ];
-
-  function load() {
-    try {
-      var s = localStorage.getItem(KEY);
-      return s ? JSON.parse(s) : DEFAULT_MSGS.slice();
-    } catch(e) {
-      return DEFAULT_MSGS.slice();
-    }
-  }
-  function save(m) { localStorage.setItem(KEY, JSON.stringify(m)); }
-  var msgs = load(), showAll = false;
+  var msgs = [];
+  var showAll = false;
 
   function render() {
     var list = showAll ? msgs : msgs.slice(0, 6);
@@ -730,13 +728,35 @@
     btn.textContent = showAll ? '접기' : '더보기';
   }
 
-  document.getElementById('gb-submit').addEventListener('click', function() {
-    var n = document.getElementById('gb-name'), m = document.getElementById('gb-message');
-    if (!n.value.trim() || !m.value.trim()) return;
-    msgs.unshift({ id: Date.now(), name: n.value.trim(), content: m.value.trim(), date: new Date().toISOString(), color: Math.floor(Math.random()*7) });
-    save(msgs); n.value = ''; m.value = ''; render();
+  // Firebase에서 실시간으로 메시지 불러오기
+  db.ref('guestbook').orderByChild('date').on('value', function(snapshot) {
+    msgs = [];
+    snapshot.forEach(function(child) {
+      msgs.unshift(child.val());
+    });
+    render();
   });
-  document.getElementById('gb-message').addEventListener('keydown', function(e) { if (e.key === 'Enter') document.getElementById('gb-submit').click(); });
-  document.getElementById('gb-more').addEventListener('click', function() { showAll = !showAll; render(); });
-  render();
+
+  document.getElementById('gb-submit').addEventListener('click', function() {
+    var n = document.getElementById('gb-name');
+    var m = document.getElementById('gb-message');
+    if (!n.value.trim() || !m.value.trim()) return;
+    db.ref('guestbook').push({
+      name: n.value.trim(),
+      content: m.value.trim(),
+      date: new Date().toISOString(),
+      color: Math.floor(Math.random() * 7)
+    });
+    n.value = '';
+    m.value = '';
+  });
+
+  document.getElementById('gb-message').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') document.getElementById('gb-submit').click();
+  });
+
+  document.getElementById('gb-more').addEventListener('click', function() {
+    showAll = !showAll;
+    render();
+  });
 })();
